@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/vMain"
+    tools:context=".MainActivity"
+    tools:deviceIds="wear_round">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vAddress">
+
+        <TextView android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="address"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAlignment="gravity"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vMap">
+
+        <fragment
+            android:id="@+id/fMap"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vCompass">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2"
+            android:gravity="center_horizontal"
+            android:background="#000000">
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#ff0000"
+                android:layout_centerHorizontal="true" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivCompass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/compass"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:padding="16dp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

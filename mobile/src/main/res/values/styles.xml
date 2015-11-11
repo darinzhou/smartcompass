@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <!-- Default theme for this app. -->
+    <style name = "NoActionBar" parent = "Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- Theme for splash -->
+    <style name="SplashTheme" parent="NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+</resources>
