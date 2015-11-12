@@ -45,9 +45,9 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
     public static final int FRAGMENT_ADDRESS = 1;
     public static final int FRAGMENT_MAP = 2;
 
-    public static final int MOVE_THRESHOLD = 20;
+//    public static final int MOVE_THRESHOLD = 20;
 
-    public static final float ZOOM_DEFAULT = 18f;
+    public static final float ZOOM_DEFAULT = 17f;
 
     private GoogleApiClient mApiClient;
     private TextView mTextView;
@@ -60,8 +60,8 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
 
     private int mFragmentIndex;
 
-    private float x1, x2;
-    private float y1, y2;
+//    private float x1, x2;
+//    private float y1, y2;
 
     private BearingToNorthProvider mBearingProvider;
     private float mCurrentDegree = 0f;
@@ -89,8 +89,8 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
                         switch (action) {
                             // when user first touches the screen we get x and y coordinate
                             case MotionEvent.ACTION_DOWN:
-                                x1 = motionEvent.getX();
-                                y1 = motionEvent.getY();
+//                                x1 = motionEvent.getX();
+//                                y1 = motionEvent.getY();
                                 Log.d(TAG, "touch down!");
 
                                 mFragmentIndex++;
@@ -101,33 +101,33 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
 
                                 break;
 
-                            case MotionEvent.ACTION_UP:
-                                x2 = motionEvent.getX();
-                                y2 = motionEvent.getY();
-                                Log.d(TAG, "touch up!");
-
-                                if (Math.abs(x2 - x1) > Math.abs(y2 - y1)) {
-                                    // up and down
-
-                                    if (x2 - x1 > MOVE_THRESHOLD) {
-                                        // up
-                                        Log.d(TAG, "UP!");
-                                    } else if (x1 - x2 > MOVE_THRESHOLD) {
-                                        // down
-                                        Log.d(TAG, "DOWN!");
-                                    }
-                                } else {
-                                    // left and right
-
-                                    if (y2 - y1 > MOVE_THRESHOLD) {
-                                        // right
-                                        Log.d(TAG, "RIGHT!");
-                                    } else if (y1 - y2 > MOVE_THRESHOLD) {
-                                        // left
-                                        Log.d(TAG, "LEFT!");
-                                    }
-                                }
-                                break;
+//                            case MotionEvent.ACTION_UP:
+//                                x2 = motionEvent.getX();
+//                                y2 = motionEvent.getY();
+//                                Log.d(TAG, "touch up!");
+//
+//                                if (Math.abs(x2 - x1) > Math.abs(y2 - y1)) {
+//                                    // up and down
+//
+//                                    if (x2 - x1 > MOVE_THRESHOLD) {
+//                                        // up
+//                                        Log.d(TAG, "UP!");
+//                                    } else if (x1 - x2 > MOVE_THRESHOLD) {
+//                                        // down
+//                                        Log.d(TAG, "DOWN!");
+//                                    }
+//                                } else {
+//                                    // left and right
+//
+//                                    if (y2 - y1 > MOVE_THRESHOLD) {
+//                                        // right
+//                                        Log.d(TAG, "RIGHT!");
+//                                    } else if (y1 - y2 > MOVE_THRESHOLD) {
+//                                        // left
+//                                        Log.d(TAG, "LEFT!");
+//                                    }
+//                                }
+//                                break;
                         }
 
                         return false;
@@ -272,6 +272,7 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
         mBearingProvider.start();
         if (mApiClient != null && !(mApiClient.isConnected() || mApiClient.isConnecting()))
             mApiClient.connect();
+        sendMessage(MSG_ADDRESS, "");
     }
 
     @Override
@@ -324,7 +325,7 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
     @Override
     public void onBearingChanged(double bearing) {
 
-        Log.d(TAG, "------------> " + bearing);
+//        Log.d(TAG, "------------> " + bearing);
 
         // adjust bearing based on phoe orientation
         int rotation = getWindowManager().getDefaultDisplay().getRotation();

@@ -223,6 +223,8 @@ public class MainActivity extends AppCompatActivity implements BearingToNorthPro
             mTvAddress.setText(mAddress);
 //            // send to wear
 //            sendMessage(MSG_ADDRESS, mAddress);
+        } else {
+            mAddress = "1050 Enterprise Way, Sunnyvale, CA 94089";
         }
 
         // send to wear
@@ -333,7 +335,8 @@ public class MainActivity extends AppCompatActivity implements BearingToNorthPro
                 .build();
 
         if (mApiClient != null && !(mApiClient.isConnected() || mApiClient.isConnecting()))
-            mApiClient.connect();    }
+            mApiClient.connect();
+    }
 
     private void sendMessage(final String path, final String text) {
         new Thread(new Runnable() {
