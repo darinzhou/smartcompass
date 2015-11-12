@@ -51,6 +51,7 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
 
     private GoogleApiClient mApiClient;
     private TextView mTextView;
+    private TextView mTvDirection;
     private ImageView mIvCompass;
     private View mViewCompass;
     private View mViewAddress;
@@ -138,6 +139,7 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
                 mViewMap = findViewById(R.id.vMap);
 
                 mTextView = (TextView) stub.findViewById(R.id.text);
+                mTvDirection = (TextView) stub.findViewById(R.id.tvDirection);
                 mIvCompass = (ImageView) stub.findViewById(R.id.ivCompass);
 
                 // map
@@ -193,7 +195,7 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
                     mMarkerMyLocation.setPosition(location);
                 }
 
-                 mMarkerMyLocation.setRotation(mCurrentDegree);
+                mMarkerMyLocation.setRotation(mCurrentDegree);
             }
         });
     }
@@ -332,9 +334,8 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
         if (degree < 0) {
             deg += 360;
         }
-        String degreeToDisplay = String.format(" (%.2f" + (char) 0x00B0 + ")", deg);
-//        String title = getResources().getString(R.string.app_name) + " - " + getDirectionFromDegrees(degree) + degreeToDisplay;
-//        mTvTitle.setText(title);
+        String degreeToDisplay = String.format((char) 0x2B06 + "  " + getDirectionFromDegrees(degree) + " (%.2f" + (char) 0x00B0 + ")", deg);
+        mTvDirection.setText(degreeToDisplay);
 
         RotateAnimation ra = new RotateAnimation(
                 mCurrentDegree, -degree,
@@ -357,6 +358,59 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(currentPlace));
         }
 
+    }
+
+    public static String getDirectionFromDegrees(float degrees) {
+        if (degrees >= -11.25 && degrees < 11.25) {
+            return "N";
+        }
+        if (degrees >= 11.25 && degrees < 33.75) {
+            return "nNE";
+        }
+        if (degrees >= 33.75 && degrees < 56.25) {
+            return "NE";
+        }
+        if (degrees >= 56.25 && degrees < 78.75) {
+            return "eNE";
+        }
+        if (degrees >= 78.75 && degrees < 101.25) {
+            return "E";
+        }
+        if (degrees >= 101.25 && degrees < 123.75) {
+            return "eSE";
+        }
+        if (degrees >= 123.75 && degrees < 146.25) {
+            return "SE";
+        }
+        if (degrees >= 146.25 && degrees < 168.75) {
+            return "sSE";
+        }
+        if (degrees >= 168.75 || degrees < -168.75) {
+            return "S";
+        }
+        if (degrees >= -168.75 && degrees < -146.25) {
+            return "sSW";
+        }
+        if (degrees >= -146.25 && degrees < -123.75) {
+            return "SW";
+        }
+        if (degrees >= -123.75 && degrees < -101.25) {
+            return "wSW";
+        }
+        if (degrees >= -101.25 && degrees < -78.75) {
+            return "W";
+        }
+        if (degrees >= -78.75 && degrees < -56.25) {
+            return "wNW";
+        }
+        if (degrees >= -56.25 && degrees < -33.75) {
+            return "NW";
+        }
+        if (degrees >= -33.75 && degrees < -11.25) {
+            return "nNW";
+        }
+
+        return null;
     }
 
 }
