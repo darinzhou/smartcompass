@@ -1,4 +1,4 @@
-package com.comcast.smartcompass;
+package com.comcast.compass;
 
 /**
  * Utility class to compute angle

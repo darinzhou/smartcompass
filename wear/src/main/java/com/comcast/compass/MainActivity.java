@@ -1,14 +1,10 @@
-package com.comcast.smartcompass;
+package com.comcast.compass;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,7 +19,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -52,7 +47,7 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
 
     public static final int MOVE_THRESHOLD = 20;
 
-    public static final float ZOOM_DEFAULT = 16f;
+    public static final float ZOOM_DEFAULT = 18f;
 
     private GoogleApiClient mApiClient;
     private TextView mTextView;
@@ -176,6 +171,14 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
         mZoom = ZOOM_DEFAULT;
         mMap.animateCamera(CameraUpdateFactory.zoomTo(mZoom));
 
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mFragmentIndex = FRAGMENT_COMPASS;
+                showSpecifiedFragment();
+            }
+        });
+
         mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
             public void onCameraChange(CameraPosition arg0) {
@@ -185,7 +188,7 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
                 if (mMarkerMyLocation == null) {
                     mMarkerMyLocation = mMap.addMarker(new MarkerOptions()
                             .position(location)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.my_location_2)));
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.my_location)));
                 } else {
                     mMarkerMyLocation.setPosition(location);
                 }
@@ -318,6 +321,9 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
 
     @Override
     public void onBearingChanged(double bearing) {
+
+        Log.d(TAG, "------------> " + bearing);
+
         // adjust bearing based on phoe orientation
         int rotation = getWindowManager().getDefaultDisplay().getRotation();
         float degree = (float) bearing + rotation * 90;
@@ -344,7 +350,10 @@ public class MainActivity extends WearableActivity implements OnMapReadyCallback
         if (mCurrentLatLng != null) {
             CameraPosition currentPlace = new CameraPosition.Builder()
                     .target(mCurrentLatLng)
-                    .bearing(degree).tilt(65.5f).zoom(mZoom).build();
+                    .bearing(degree)
+//                    .tilt(65.5f)
+                    .zoom(mZoom)
+                    .build();
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(currentPlace));
         }
 

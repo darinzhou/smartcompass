@@ -1,4 +1,4 @@
-package com.comcast.smartcompass;
+package com.comcast.compass;
 
 import android.content.Intent;
 import android.os.Bundle;

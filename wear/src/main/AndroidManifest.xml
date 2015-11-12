@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.comcast.smartcompass" >
+    package="com.comcast.compass" >
 
     <uses-feature android:name="android.hardware.type.watch" />
 
+    <!-- Permission required for ambient mode to keep the application running. -->
+    <!-- uses-permission android:name="android.permission.WAKE_LOCK" / -->
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_compass"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.DeviceDefault" >
 
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
         <!-- begin of google maps API requirements, API_KEY need to be adjusted -->
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyChDfSzbNPb4m19yDfLDu_Uu4_KUjzLSyM" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBLfYhgMkHTuRIoYcIhnWuEjqZRoVxQUQM" />
+                <!-- "AIzaSyChDfSzbNPb4m19yDfLDu_Uu4_KUjzLSyM" -->
         <!-- end of google maps API requirements -->
+
+        <!-- Reference the wearable shared library required to support ambient mode. -->
+        <!-- uses-library android:name="com.google.android.wearable" android:required="false" / -->
 
         <activity
             android:name=".MainActivity"
